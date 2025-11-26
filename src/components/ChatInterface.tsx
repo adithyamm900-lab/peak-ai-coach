@@ -37,15 +37,17 @@ export const ChatInterface = ({ onClose }: { onClose: () => void }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
-      <Card className="flex h-[600px] w-full max-w-2xl flex-col border-border bg-card">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-md animate-fade-in">
+      <Card className="flex h-[600px] w-full max-w-2xl flex-col border-border bg-card shadow-glow animate-scale-in">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-border p-4">
-          <div className="flex items-center gap-2">
-            <Bot className="h-6 w-6 text-primary" />
-            <h2 className="text-lg font-semibold">AI Sports Coach</h2>
+        <div className="flex items-center justify-between border-b border-border p-4" style={{ background: 'var(--gradient-primary)' }}>
+          <div className="flex items-center gap-3">
+            <div className="rounded-lg bg-background/20 p-2 shadow-glow">
+              <Bot className="h-6 w-6 text-primary-foreground" />
+            </div>
+            <h2 className="text-lg font-semibold text-primary-foreground">AI Sports Coach</h2>
           </div>
-          <Button variant="ghost" size="icon" onClick={onClose}>
+          <Button variant="ghost" size="icon" onClick={onClose} className="text-primary-foreground hover:bg-background/20">
             <X className="h-5 w-5" />
           </Button>
         </div>
@@ -61,22 +63,23 @@ export const ChatInterface = ({ onClose }: { onClose: () => void }) => {
                 }`}
               >
                 {message.role === "assistant" && (
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10">
-                    <Bot className="h-5 w-5 text-primary" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl shadow-glow" style={{ background: 'var(--gradient-primary)' }}>
+                    <Bot className="h-6 w-6 text-primary-foreground" />
                   </div>
                 )}
                 <div
-                  className={`max-w-[80%] rounded-lg p-3 ${
+                  className={`max-w-[80%] rounded-2xl p-4 shadow-md transition-all duration-300 hover:shadow-lg ${
                     message.role === "user"
-                      ? "bg-primary text-primary-foreground"
+                      ? "shadow-glow-secondary"
                       : "bg-muted text-foreground"
                   }`}
+                  style={message.role === "user" ? { background: 'var(--gradient-secondary)' } : {}}
                 >
-                  {message.content}
+                  <p className={message.role === "user" ? "text-secondary-foreground" : ""}>{message.content}</p>
                 </div>
                 {message.role === "user" && (
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary/10">
-                    <User className="h-5 w-5 text-secondary" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl shadow-glow-secondary" style={{ background: 'var(--gradient-secondary)' }}>
+                    <User className="h-6 w-6 text-secondary-foreground" />
                   </div>
                 )}
               </div>
@@ -85,17 +88,17 @@ export const ChatInterface = ({ onClose }: { onClose: () => void }) => {
         </ScrollArea>
 
         {/* Input */}
-        <div className="border-t border-border p-4">
-          <div className="flex gap-2">
+        <div className="border-t border-border p-4 bg-muted/30">
+          <div className="flex gap-3">
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && handleSend()}
               placeholder="Ask about training, recovery, or performance..."
-              className="flex-1"
+              className="flex-1 border-border/50 focus:shadow-glow transition-shadow duration-300"
             />
-            <Button onClick={handleSend} size="icon">
-              <Send className="h-4 w-4" />
+            <Button onClick={handleSend} size="icon" className="h-11 w-11 shadow-glow hover:shadow-glow-secondary transition-all duration-300" style={{ background: 'var(--gradient-primary)' }}>
+              <Send className="h-5 w-5" />
             </Button>
           </div>
         </div>
