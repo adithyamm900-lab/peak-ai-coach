@@ -4,6 +4,7 @@ import { Activity, TrendingUp, Target, MessageSquare } from "lucide-react";
 import { useState } from "react";
 import { ChatInterface } from "@/components/ChatInterface";
 import { PerformanceMetrics } from "@/components/PerformanceMetrics";
+import { ExerciseRoutine } from "@/components/ExerciseRoutine";
 
 const Index = () => {
   const [showChat, setShowChat] = useState(false);
@@ -82,6 +83,9 @@ const Index = () => {
           </Card>
         </div>
       </section>
+
+      {/* Exercise Routine */}
+      <ExerciseRoutine />
 
       {/* Performance Metrics */}
       <PerformanceMetrics />
